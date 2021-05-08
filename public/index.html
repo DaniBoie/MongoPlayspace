@@ -7,6 +7,28 @@
   <title>Document</title>
 </head>
 <body>
-  Hello World
+  <h1>List Items</h1>
+  Add Item:<input type="text" id="input">
+
+  <li id="list">
+
+  </li>
+  <button id="add">Add item</button>
 </body>
+
+<script>
+  document.getElementById('add').addEventListener('click', () => {
+    // console.log('hit')
+    list = document.getElementById('list')
+    console.log(list)  
+    newItem = document.createElement('li')
+    newItem.innerHTML = document.getElementById('input').value
+    console.log(newItem)
+
+    list.appendChild(newItem)
+    document.getElementById('input').value = ''
+    x = document.getElementById('input').value
+    console.log(x)
+  })
+</script>
 </html>
