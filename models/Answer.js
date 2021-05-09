@@ -11,8 +11,7 @@ const Answer = new Schema({
     required: true
   },
   body: {
-    type: String,
-    required: true
+    type: String
   },
   authors: [ // Array(s)
     {
