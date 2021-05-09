@@ -19,6 +19,12 @@ const User = new Schema({
       ref: 'Question'
     }
   ],
+  discussions: [
+    {
+      type: ObjectId,
+      ref: 'Discussion'
+    }
+  ],
   comments: [
     {
       type: ObjectId,
