@@ -1,15 +1,9 @@
 const router = require('express').Router()
-const { Answer, Comment, Discussion, Question, User } = require('../models')
+const { Answer, Comment, Question, User } = require('../models')
 
-// GET all items
-// router.get('/questions', (req, res) => {
-//   Question.find()
-//     .then(questions => res.json(questions))
-//     .catch(err => console.log(err))
-// })
+// POST one answer
+// Creating an answer and binding it to a question and user_type.
 
-// POST one item
-// Creating a discussion and bounding it to a question and user
 router.post('/answers/:user_type', (req, res) => {
   const location = req.params.user_type
   Answer.create(req.body)
@@ -28,18 +22,11 @@ router.post('/answers/:user_type', (req, res) => {
     .catch(err => console.log(err))
 })
 
-// PUT one item
-// router.put('/question/:id', (req, res) => {
-//   Discussion.findByIdAndUpdate(req.params.id, req.body)
-//     .then(() => res.sendStatus(200))
-//     .catch(err => console.log(err))
-// })
-
-// DELETE one item
-// router.delete('/items/:id', (req, res) => {
-//   Question.findByIdAndDelete(req.params.id)
-//     .then(() => res.sendStatus(200))
-//     .catch(err => console.log(err))
-// })
+// PUT one answer (Update an answer.)
+router.put('/answers/:id', (req, res) => {
+  Answer.findByIdAndUpdate(req.params.id, req.body)
+    .then(() => res.sendStatus(200))
+    .catch(err => console.log(err))
+})
 
 module.exports = router

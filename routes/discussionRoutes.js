@@ -1,15 +1,24 @@
 const router = require('express').Router()
 const { Discussion, Question, User } = require('../models')
+const { populate } = require('../models/Item')
 
-// GET all items
-// router.get('/questions', (req, res) => {
-//   Question.find()
-//     .then(questions => res.json(questions))
-//     .catch(err => console.log(err))
-// })
+// GET discussions from a specific question.
+router.get('/discussions/:question_id', (req, res) => {
+  Question.findById(req.params.question_id)
+    .populate({
+      path: 'discussions',
+      populate: {
+        path: 'comments'
+      }
+    })
+    .then(data => {
+      res.send(data.discussions)
+    })
+    .catch(err => console.log(err))
+})
 
-// POST one item
-// Creating a discussion and bounding it to a question and user
+// POST one discussion
+// Creating a discussion and binding it to a question and user.
 router.post('/discussions', (req, res) => {
   Discussion.create(req.body)
     .then(discussion => {
@@ -27,17 +36,10 @@ router.post('/discussions', (req, res) => {
 })
 
 // PUT one item
-// router.put('/question/:id', (req, res) => {
-//   Discussion.findByIdAndUpdate(req.params.id, req.body)
-//     .then(() => res.sendStatus(200))
-//     .catch(err => console.log(err))
-// })
-
-// DELETE one item
-// router.delete('/items/:id', (req, res) => {
-//   Question.findByIdAndDelete(req.params.id)
-//     .then(() => res.sendStatus(200))
-//     .catch(err => console.log(err))
-// })
+router.put('/discussions/:id', (req, res) => {
+  Discussion.findByIdAndUpdate(req.params.id, req.body)
+    .then(() => res.sendStatus(200))
+    .catch(err => console.log(err))
+})
 
 module.exports = router

@@ -3,7 +3,7 @@ const { model, Schema, ObjectId } = require('mongoose')
 const Class = new Schema({
   code: {
     type: String,
-    unique: true,
+    // unique: true,
     required: true
   },
   name: {

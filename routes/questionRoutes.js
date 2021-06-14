@@ -1,15 +1,16 @@
 const router = require('express').Router()
 const { Question, User } = require('../models')
 
-// GET all items
+// GET all questions (for class) * UPDATE TO SEARCH SPECIFIC CLASS
 router.get('/questions', (req, res) => {
   Question.find()
     .then(questions => res.json(questions))
     .catch(err => console.log(err))
 })
 
-// POST one item
-// Creating a question and bounding it to a User
+// POST one question
+// Creating a question and binding it to a User.
+// * UPDATE TO ADD TO SPECIFIC CLASS!
 router.post('/questions', (req, res) => {
   Question.create(req.body)
     .then(item => {
@@ -30,7 +31,7 @@ router.put('/question/:id', (req, res) => {
     .catch(err => console.log(err))
 })
 
-// DELETE one item
+// DELETE one item (CHECK IF SUBSEQUENT DELETES ARE NEEDED)
 router.delete('/items/:id', (req, res) => {
   Question.findByIdAndDelete(req.params.id)
     .then(() => res.sendStatus(200))

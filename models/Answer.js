@@ -6,10 +6,6 @@ const Answer = new Schema({
     ref: 'Question',
     required: true
   },
-  answered: {
-    type: Boolean,
-    required: true
-  },
   body: {
     type: String
   },
