@@ -9,7 +9,6 @@ router.get('/items', (req, res) => {
 })
 
 // POST one item
-
 router.post('/items', (req, res) => {
   Item.create(req.body)
     .then(item => res.json(item))

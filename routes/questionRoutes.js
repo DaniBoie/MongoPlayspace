@@ -1,10 +1,11 @@
 const router = require('express').Router()
-const { Question, User } = require('../models')
+const { Question, User, Class } = require('../models')
 
-// GET all questions (for class) * UPDATE TO SEARCH SPECIFIC CLASS
-router.get('/questions', (req, res) => {
-  Question.find()
-    .then(questions => res.json(questions))
+// GET all questions (for class)
+router.get('/questions/:class_id', (req, res) => {
+  Class.findById(req.params.class_id)
+    .populate('questions')
+    .then(classy => res.json(classy.questions))
     .catch(err => console.log(err))
 })
 

@@ -41,11 +41,41 @@ router.post('/classes/:user_id', (req, res) => {
     .catch(err => console.log(err))
 })
 
-// New Student Join Request.
+// New Class Join Request.
 router.put('/classes/join_request/:class_id/:user_id', (req, res) => {
   Class.findByIdAndUpdate(req.params.class_id, { $push: { requests: req.params.user_id } })
     .then(() => res.sendStatus(200))
     .catch(err => console.log(err))
 })
+
+// Accepting Join Request for student / instructor
+router.put('/classes/accept_request/:class_id/:user_id', (req, res) => {
+  Class.findByIdAndUpdate(req.params.class_id, { $pull: { requests: req.params.user_id } })
+    .then(() => {
+      User.findById(req.params.user_id)
+        .then(user => {
+          if (user.type === 'student') {
+            Class.findByIdAndUpdate(req.params.class_id, { $push: { students: user._id } })
+              .then(() => res.sendStatus(200))
+              .catch(err => console.log(err))
+          } else if (user.type === 'instructor') {
+            Class.findByIdAndUpdate(req.params.class_id, { $push: { instructors: user._id } })
+              .then(() => res.sendStatus(200))
+              .catch(err => console.log(err))
+          }
+        })
+        .catch(err => console.log(err))
+    })
+    .catch(err => console.log(err))
+})
+
+// Rejecting Join Request for student / instructor
+router.put('/classes/reject_request/:class_id/:user_id', (req, res) => {
+  Class.findByIdAndUpdate(req.params.class_id, { $pull: { requests: req.params.user_id } })
+    .then(() => res.sendStatus(200))
+    .catch(err => console.log(err))
+})
+
+
 
 module.exports = router
